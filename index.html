@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Recorder Note Player</title>
   <style>
-
     html, body {
       margin: 0;
       padding: 0;
@@ -13,18 +12,15 @@
       background: white;
       height: auto;
     }
-
     img {
       height: 500px;
     }
-
     .note-container {
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 3px;
     }
-
     .note-box {
       width: 60px;
       height: 40px;
@@ -37,7 +33,7 @@
       cursor: pointer;
       color: white;
     }
-      .note-box.active {
+    .note-box.active {
       transform: scale(1.15);
       transition: transform 0.1s ease;
     }
@@ -46,24 +42,22 @@
 <body>
   <div style="display: inline-block; padding: 0; margin: 0; box-sizing: content-box;">
     <div style="transform: scale(var(--scale)); transform-origin: top left; display: flex; align-items: center; gap: 20px; flex-shrink: 0;">
-  <div id="scaling-wrapper" style="transform-origin: top left; display: flex; align-items: flex-start; gap: 5px;">
-  <img id="recorderImage" src="https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0001.png" alt="Recorder" />
-
-  <div class="note-container" id="noteContainer"></div>
-
-  <script>
-    const notes = [
-      { label: "C", pitch: "C4", color: "#FF0000", image: "https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0002.png" },
-      { label: "D", pitch: "D4", color: "#FFA500", image: "https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0003.png" },
-      { label: "E", pitch: "E4", color: "#FFFF00", image: "https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0004.png" },
-      { label: "F#", pitch: "F#4", color: "#00FF00", image: "https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0006.png" },
-      { label: "G", pitch: "G4", color: "#40E0D0", image: "https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0007.png" },
-      { label: "A", pitch: "A4", color: "#0000FF", image: "https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0008.png" },
-      { label: "B", pitch: "B4", color: "#800080", image: "https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0009.png" },
-      { label: "C", pitch: "C5", color: "#FF0000", image: "https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0010.png" },
-      { label: "D", pitch: "D5", color: "#FFA500", image: "https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0011.png" },
-      { label: "E", pitch: "E5", color: "#FFFF00", image: "https://https://visualmusicalminds.github.io/images/Recorder%20Pngs0012.png" },
-    ];
+      <div id="scaling-wrapper" style="transform-origin: top left; display: flex; align-items: flex-start; gap: 5px;">
+        <img id="recorderImage" src="https://visualmusicalminds.github.io/images/Recorder%20Pngs0001.png" alt="Recorder" />
+        <div class="note-container" id="noteContainer"></div>
+        <script>
+          const notes = [
+            { label: "C", pitch: "C4", color: "#FF0000", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0002.png" },
+            { label: "D", pitch: "D4", color: "#FFA500", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0003.png" },
+            { label: "E", pitch: "E4", color: "#FFFF00", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0004.png" },
+            { label: "F#", pitch: "F#4", color: "#00FF00", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0006.png" },
+            { label: "G", pitch: "G4", color: "#40E0D0", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0007.png" },
+            { label: "A", pitch: "A4", color: "#0000FF", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0008.png" },
+            { label: "B", pitch: "B4", color: "#800080", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0009.png" },
+            { label: "C", pitch: "C5", color: "#FF0000", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0010.png" },
+            { label: "D", pitch: "D5", color: "#FFA500", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0011.png" },
+            { label: "E", pitch: "E5", color: "#FFFF00", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0012.png" },
+          ];
 
     const noteContainer = document.getElementById("noteContainer");
 

@@ -6,20 +6,60 @@
   <title>Recorder Note Player</title>
   <style>
     html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
       font-family: sans-serif;
       background: white;
-      height: auto;
+      width: 100vw;
+      min-height: 100vh;
     }
-    img {
+    body {
+      min-height: 100vh;
+      min-width: 100vw;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .app-center-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+      min-width: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .scaling-outer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+    }
+    .scaling-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    img#recorderImage {
       height: 500px;
+      width: auto;
+      display: block;
     }
     .note-container {
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 3px;
+    }
+    .note-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .note-box {
       width: 60px;
@@ -32,36 +72,60 @@
       border-radius: 5px;
       cursor: pointer;
       color: white;
+      position: relative;
     }
     .note-box.active {
       transform: scale(1.15);
       transition: transform 0.1s ease;
     }
+    .keybinding-label {
+      font-size: 0.82em;
+      color: #444;
+      opacity: 0.75;
+      vertical-align: middle;
+      user-select: none;
+      font-family: monospace, monospace;
+      min-width: 1.3em;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      height: 40px;
+    }
   </style>
 </head>
 <body>
-  <div style="display: inline-block; padding: 0; margin: 0; box-sizing: content-box;">
-    <div style="transform: scale(var(--scale)); transform-origin: top left; display: flex; align-items: center; gap: 20px; flex-shrink: 0;">
-      <div id="scaling-wrapper" style="transform-origin: top left; display: flex; align-items: flex-start; gap: 5px;">
-        <img id="recorderImage" src="https://visualmusicalminds.github.io/images/Recorder%20Pngs0001.png" alt="Recorder" />
+  <div class="app-center-container">
+    <div class="scaling-outer" id="scaling-outer">
+      <div class="scaling-wrapper" id="scaling-wrapper">
+        <img id="recorderImage" src="https://eagleviewmusic.com/images/Recorder%20Pngs0001.png" alt="Recorder" />
         <div class="note-container" id="noteContainer"></div>
-        <script>
-          const notes = [
-            { label: "C", pitch: "C4", color: "#FF0000", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0002.png" },
-            { label: "D", pitch: "D4", color: "#FFA500", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0003.png" },
-            { label: "E", pitch: "E4", color: "#FFFF00", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0004.png" },
-            { label: "F#", pitch: "F#4", color: "#00FF00", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0006.png" },
-            { label: "G", pitch: "G4", color: "#40E0D0", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0007.png" },
-            { label: "A", pitch: "A4", color: "#0000FF", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0008.png" },
-            { label: "B", pitch: "B4", color: "#800080", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0009.png" },
-            { label: "C", pitch: "C5", color: "#FF0000", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0010.png" },
-            { label: "D", pitch: "D5", color: "#FFA500", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0011.png" },
-            { label: "E", pitch: "E5", color: "#FFFF00", image: "https://visualmusicalminds.github.io/images/Recorder%20Pngs0012.png" },
-          ];
+      </div>
+    </div>
+  </div>
+  <script>
+    // Keybinding map, matches order in notes array. 
+    const keybindings = ['1','2','3','4','5','6','7','8','9','0'];
+
+    const notes = [
+      { label: "C", pitch: "C4", color: "#FF0000", image: "https://eagleviewmusic.com/images/Recorder%20Pngs0002.png" },
+      { label: "D", pitch: "D4", color: "#FFA500", image: "https://eagleviewmusic.com/images/Recorder%20Pngs0003.png" },
+      { label: "E", pitch: "E4", color: "#FFFF00", image: "https://eagleviewmusic.com/images/Recorder%20Pngs0004.png" },
+      { label: "F#", pitch: "F#4", color: "#00FF00", image: "https://eagleviewmusic.com/images/Recorder%20Pngs0006.png" },
+      { label: "G", pitch: "G4", color: "#40E0D0", image: "https://eagleviewmusic.com/images/Recorder%20Pngs0007.png" },
+      { label: "A", pitch: "A4", color: "#0000FF", image: "https://eagleviewmusic.com/images/Recorder%20Pngs0008.png" },
+      { label: "B", pitch: "B4", color: "#800080", image: "https://eagleviewmusic.com/images/Recorder%20Pngs0009.png" },
+      { label: "C", pitch: "C5", color: "#FF0000", image: "https://eagleviewmusic.com/images/Recorder%20Pngs0010.png" },
+      { label: "D", pitch: "D5", color: "#FFA500", image: "https://eagleviewmusic.com/images/Recorder%20Pngs0011.png" },
+      { label: "E", pitch: "E5", color: "#FFFF00", image: "https://eagleviewmusic.com/images/Recorder%20Pngs0012.png" },
+    ];
 
     const noteContainer = document.getElementById("noteContainer");
 
     notes.forEach((note, index) => {
+      // Each note row contains the box and the keybinding number to its right
+      const row = document.createElement("div");
+      row.className = "note-row";
+      
       const box = document.createElement("div");
       box.className = "note-box";
       box.textContent = note.label;
@@ -69,7 +133,17 @@
       box.style.color = note.label === "E" ? "#444" : "white";
       box.dataset.pitch = note.pitch;
       box.dataset.index = index;
-      noteContainer.prepend(box); // Reversed stacking order
+
+      // Create the keybinding label
+      const keyLabel = document.createElement("span");
+      keyLabel.className = "keybinding-label";
+      keyLabel.textContent = keybindings[index] || "";
+      keyLabel.title = `Press ${keybindings[index] || ""} to play ${note.label}`;
+
+      row.appendChild(box);
+      row.appendChild(keyLabel);
+
+      noteContainer.prepend(row); 
     });
 
     const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -168,44 +242,33 @@
         if (box) box.classList.remove('active');
       }
     });
-  document.body.addEventListener('mousedown', e => {
-  if (!e.target.classList.contains('note-box')) {
-    const image = document.getElementById('recorderImage');
-    image.src = "https://raw.githubusercontent.com/VisualMusicalMinds/Recorder-Images/refs/heads/main/Recorder%20Pngs0001.png";
-  }
-});
+
+    document.body.addEventListener('mousedown', e => {
+      if (!e.target.classList.contains('note-box')) {
+        const image = document.getElementById('recorderImage');
+        image.src = "https://eagleviewmusic.com/images/Recorder%20Pngs0001.png";
+      }
+    });
 
     document.body.addEventListener('touchstart', e => {
       if (!e.target.classList.contains('note-box')) {
         const image = document.getElementById('recorderImage');
-        image.src = "https://raw.githubusercontent.com/VisualMusicalMinds/Recorder-Images/refs/heads/main/Recorder%20Pngs0001.png";
+        image.src = "https://eagleviewmusic.com/images/Recorder%20Pngs0001.png";
       }
     }, { passive: true });
-function updateScale() {
-  const wrapper = document.getElementById('scaling-wrapper');
-  const maxWidth = window.innerWidth;
-  const maxHeight = window.innerHeight;
-  const contentWidth = 600 + 80;
-  const contentHeight = 500;
-  const scale = Math.min(maxWidth / 260, maxHeight / 480, 1); // scale to fit 260x480 iframe size
-  wrapper.style.transform = `scale(${scale})`;
 
-  // Vertically center the wrapper within the container
-  const container = wrapper.parentElement;
-  const offsetY = (maxHeight - (contentHeight * scale)) / 2;
-  container.style.display = 'block';
-  container.style.paddingTop = '0';
-  container.style.paddingLeft = '0';
-  container.style.margin = '0';
-  container.style.overflow = 'hidden';
-  container.style.boxSizing = 'border-box';
-}
-
-window.addEventListener('resize', updateScale);
-window.addEventListener('load', updateScale);
-
-</script>
-    </div>
-  </div>
+    // Responsive scaling: shrink the whole app proportionally if needed (height only)
+    function updateScale() {
+      const outer = document.getElementById('scaling-outer');
+      // DESIGN SIZE: height = 500px (matches recorder image)
+      const designHeight = 500;
+      const availableHeight = window.innerHeight * 0.98;
+      const scale = Math.min(1, availableHeight / designHeight);
+      outer.style.transform = `scale(${scale})`;
+    }
+    window.addEventListener('resize', updateScale);
+    window.addEventListener('load', updateScale);
+    updateScale();
+  </script>
 </body>
 </html>
